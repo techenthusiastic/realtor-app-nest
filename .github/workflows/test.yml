@@ -79,6 +79,12 @@ jobs:
 
       - name: push db
         run: yarn prisma db push
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_HOST: postgres
+          POSTGRES_DB: mydb
+          POSTGRES_PORT: 5432
 
       - name: Lint
         run: yarn eslint
