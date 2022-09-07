@@ -1,0 +1,5 @@
+// value changed
+{"rootDir": "src"} to {"rootDir": "./"}
+
+// added 
+{"modulePaths": ["<rootDir>"],}

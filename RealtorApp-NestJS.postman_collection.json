@@ -1,0 +1,295 @@
+{
+	"info": {
+		"_postman_id": "0357544d-f784-4dc9-8ba7-b5ba28bf49c5",
+		"name": "RealtorApp-NestJS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16871331"
+	},
+	"item": [
+		{
+			"name": "Home",
+			"item": [
+				{
+					"name": "get-all-homes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/home",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"home"
+							],
+							"query": [
+								{
+									"key": "city",
+									"value": "SPER",
+									"disabled": true
+								},
+								{
+									"key": "minPrice",
+									"value": "50000",
+									"disabled": true
+								},
+								{
+									"key": "maxPrice",
+									"value": "70000",
+									"disabled": true
+								},
+								{
+									"key": "propertyType",
+									"value": "RESIDENTIAL",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-home-by-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/home/2",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"home",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-home",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"address\": \"dfr 345s Inkrdso\",\n    \"numberOfBedrooms\": 43,\n    \"numberOfBathrooms\": 43.5,\n    \"city\": \"LSMD\",\n    \"price\": 6000,\n    \"landSize\": 43,\n    \"propertyType\": \"CONDO\",\n    \"images\": [\n        {\n            \"url\": \"img10\"\n        },\n        {\n            \"url\": \"img11\"\n        },\n        {\n            \"url\": \"img12\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/home",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"home"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-home",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"address\": \"dfr 345 Inkdro\",\n    \"numberOfBedrooms\": 43,\n    \"numberOfBathrooms\": 5.554,\n    \"city\": \"POR\",\n    \"price\": 670000,\n    \"landSize\": 456\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/home/1",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"home",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-home",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/home/18",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"home",
+								"18"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "who-am-i",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/auth/who-am-i",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"auth",
+								"who-am-i"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Sign-In",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"sinha2abc@gmail.com\",\n    \"password\": \"sachinrealtor\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/auth/signin",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sign-Up",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sachin Kumar\",\n    \"phone\": \"1234567890\",\n    \"email\": \"sinha2abc@gmail.com\",\n    \"password\": \"sachinrealtor\",\n    \"productKey\": \"$2a$10$Japa8LwRUM2XmhXSII9fyezaHk2tCYtsRCTGfctp2dSs2jDJVEd2S\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DOMAIN}}/auth/signup/REALTOR",
+					"host": [
+						"{{DOMAIN}}"
+					],
+					"path": [
+						"auth",
+						"signup",
+						"REALTOR"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generate-Product-Key",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"sinha2abc@gmail.com\",\n    \"userType\": \"REALTOR\"\n} ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DOMAIN}}/auth/key",
+					"host": [
+						"{{DOMAIN}}"
+					],
+					"path": [
+						"auth",
+						"key"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{JWT_TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "PORT",
+			"value": "3000",
+			"type": "string"
+		},
+		{
+			"key": "DOMAIN",
+			"value": "http://localhost:{{PORT}}",
+			"type": "string"
+		},
+		{
+			"key": "JWT_TOKEN",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FjaGluIEt1bWFyIiwiZW1haWwiOiJzaW5oYTFhYmNAZ21haWwuY29tIiwiaWQiOjEsImlhdCI6MTY1ODY2NTkxOH0.nQRaqP2cCm7Wt-2E-fgy1W64eVb3V1v7d5Ghnzqhjto",
+			"type": "string"
+		}
+	]
+}
