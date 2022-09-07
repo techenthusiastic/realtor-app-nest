@@ -14,6 +14,14 @@ describe('Test Module', () => {
 
   let getHomeByIdServiceValidResponse: {};
 
+  let user = {
+    name: 'VALID_NAME',
+    phone: '1234567890',
+    email: 'mail1@gmail.com',
+    password: 'mailuser',
+    productKey: '',
+  };
+
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [TestModule],
@@ -25,6 +33,22 @@ describe('Test Module', () => {
     await app.init();
 
     testService = moduleRef.get<TestService>(TestService);
+
+    console.log('Generate Product Key');
+    const q = await request(app.getHttpServer())
+      .post('/auth/key')
+      .send({
+        email: user.email,
+        userType: 'REALTOR',
+      })
+      .expect(201);
+    user.productKey = q.text;
+
+    console.log('Sign Up REALTOR');
+    await request(app.getHttpServer())
+      .post('/auth/signup/REALTOR')
+      .send(user)
+      .expect(201);
 
     const createHomeServiceResponse = await testService.createHome();
     console.log('Creating Home');
@@ -42,26 +66,11 @@ describe('Test Module', () => {
       propertyType: 'CONDO',
       created_at: createHomeServiceResponse.created_at,
       updated_at: createHomeServiceResponse.updated_at,
-      realtor_id: 2,
+      realtor_id: 1,
     };
     getHomeByIdServiceValidResponse = JSON.parse(
       JSON.stringify(getHomeByIdServiceValidResponse),
     );
-  });
-
-  it('POST /auth/signup/REALTOR', () => {
-    const user = {
-      name: 'VALID_NAME',
-      phone: '1234567890',
-      email: 'mail123@gmail.com',
-      password: 'mailuser',
-      productKey:
-        '$2a$10$w1Z/h9J9bzH0xZfeT5V4aueHopGfk06qF2P7RQjRtqDpABVdttI4u',
-    };
-    return request(app.getHttpServer())
-      .post('/auth/signup/REALTOR')
-      .send(user)
-      .expect(201);
   });
 
   it(`/GET test`, () => {

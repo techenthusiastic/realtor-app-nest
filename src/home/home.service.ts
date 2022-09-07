@@ -87,7 +87,6 @@ export class HomeService {
     }: CreateHomeBodyParam,
     user: UserInfo,
   ): Promise<HomeResponseDTO> {
-    console.log(user);
     try {
       const createHome = await this.prismaService.home.create({
         data: {
