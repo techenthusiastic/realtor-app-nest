@@ -45,46 +45,45 @@ jobs:
           POSTGRES_PORT: 5432
       - name: 'yarn start'
         run: yarn start:dev
+  tests:
+    runs-on: ubuntu-latest
 
-tests:
-  runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
 
-  strategy:
-    matrix:
-      node-version: [16.x]
+    steps:
+      - uses: actions/checkout@v3
 
-  steps:
-    - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
+      - uses: mskelton/setup-yarn@v1.2.1
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - uses: mskelton/setup-yarn@v1.2.1
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
 
-    - name: Install dependencies
-      run: yarn install --frozen-lockfile
+      - name: Generate prisma client
+        run: yarn db:gen
 
-    - name: Generate prisma client
-      run: yarn db:gen
+      - name: Lint
+        run: yarn eslint
 
-    - name: Lint
-      run: yarn eslint
+      # - name: Run tests
+      #   run: yarn test:cov | tee coverage/coverage.txt
 
-    # - name: Run tests
-    #   run: yarn test:cov | tee coverage/coverage.txt
+      # - name: Jest coverage comment
+      #   uses: MishaKav/jest-coverage-comment@main
+      #   with:
+      #     title: "Test Coverage"
+      #     coverage-summary-path: ./coverage/coverage-summary.json
+      #     coverage-path: ./coverage/coverage.txt
 
-    # - name: Jest coverage comment
-    #   uses: MishaKav/jest-coverage-comment@main
-    #   with:
-    #     title: "Test Coverage"
-    #     coverage-summary-path: ./coverage/coverage-summary.json
-    #     coverage-path: ./coverage/coverage.txt
-
-    - name: Run tests and check code coverage
-      uses: mattallty/jest-github-action@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run tests and check code coverage
+        uses: mattallty/jest-github-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
