@@ -40,36 +40,14 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
 
-      # - name: Install dependencies
-      #   run: yarn install --frozen-lockfile
+      # - name: Use Node.js ${{ matrix.node-version }}
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: ${{ matrix.node-version }}
 
-      # - name: Connect to PostgreSQL
-      #   # Runs a script that creates a PostgreSQL table, populates
-      #   # the table with data, and then retrieves the data.
-      #   run: node client.js
-      #   # Environment variables used by the `client.js` script to create a new PostgreSQL table.
-      #   env:
-      #     # The hostname used to communicate with the PostgreSQL service container
-      #     POSTGRES_HOST: postgres
-      #     # The default PostgreSQL port
-      #     POSTGRES_PORT: 5432
-
-      # - name: 'yarn start'
-      #   run: yarn start:dev
-      #   env:
-      #     DATABASE_URL: postgresql://postgres:postgres@postgres:5432/mydb?schema=public
-      #     JWT_ACCESS_SECRET: e6930f2e5c342a3ca34a11f50f50559ae1c42ebe7eaa3285d8b9cdc2da495d340c121cf9423a2948badc79680633668fe3f707e0f3056a81baab97842cd70f4f
-      #     JWT_REFRESH_SECRET: 928d66daa344e4bd57d48e8550a8576201e76ee40180dcd0bb9e1590a3cbec660a3c18fd6ecfff1ba13ac5161f7f1e9213ca8624444f836002978c4fe093b999
-      #     PRODUCT_KEY_SECRET: 7a48fb5729b2e40efec94e10d206c9db7cbf3e2479b57ce73d5bc19cbfea7b1b280938889d96612f31d6981c9dda6e02d5de46380052e332fcf5290133b37808
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - uses: mskelton/setup-yarn@v1.2.1
-        with:
-          node-version: ${{ matrix.node-version }}
+      # - uses: mskelton/setup-yarn@v1.2.1
+      #   with:
+      #     node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -85,12 +63,12 @@ jobs:
       - name: Lint
         run: yarn eslint
 
-      - name: yarn test
+      - name: test-scripts
         run: yarn test
         env:
           DATABASE_URL: postgresql://postgres:postgres@postgres:5432/mydb?schema=public
 
-      - name: Run tests and check code coverage
-        uses: mattallty/jest-github-action@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Run tests and check code coverage
+      #   uses: mattallty/jest-github-action@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
