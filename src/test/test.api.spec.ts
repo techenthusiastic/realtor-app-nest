@@ -61,8 +61,7 @@ describe('Test Module', () => {
     return request(app.getHttpServer())
       .post('/auth/signup/REALTOR')
       .send(user)
-      .expect(201)
-      .expect({ token: '' });
+      .expect(201);
   });
 
   it(`/GET test`, () => {
