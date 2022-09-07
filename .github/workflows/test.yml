@@ -85,6 +85,7 @@ jobs:
           POSTGRES_HOST: postgres
           POSTGRES_DB: mydb
           POSTGRES_PORT: 5432
+          DATABASE_URL: postgresql://postgres:postgres@postgres:5432/mydb?schema=public
 
       - name: Lint
         run: yarn eslint
