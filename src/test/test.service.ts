@@ -44,7 +44,7 @@ export class TestService {
     const user = {
       name: 'VALID_NAME',
       email: 'mail123@gmail.com',
-      id: 2,
+      id: 1,
       userType: 'REALTOR',
       iat: 1659031190,
     };
