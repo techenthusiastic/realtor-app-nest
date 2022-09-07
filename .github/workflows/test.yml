@@ -75,7 +75,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Generate prisma client
-        run: yarn db:gen
+        run: yarn prisma generate
 
       - name: push db
         run: yarn prisma db push
