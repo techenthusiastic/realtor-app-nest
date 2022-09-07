@@ -7,7 +7,11 @@ jobs:
     # Containers must run in Linux based operating systems
     runs-on: ubuntu-latest
     # Docker Hub image that `container-job` executes in
-    container: node:10.18-jessie
+    container: latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
 
     # Service containers to run with `container-job`
     services:
@@ -43,17 +47,9 @@ jobs:
           POSTGRES_HOST: postgres
           # The default PostgreSQL port
           POSTGRES_PORT: 5432
+
       - name: 'yarn start'
         run: yarn start:dev
-  tests:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [16.x]
-
-    steps:
-      - uses: actions/checkout@v3
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -72,16 +68,6 @@ jobs:
 
       - name: Lint
         run: yarn eslint
-
-      # - name: Run tests
-      #   run: yarn test:cov | tee coverage/coverage.txt
-
-      # - name: Jest coverage comment
-      #   uses: MishaKav/jest-coverage-comment@main
-      #   with:
-      #     title: "Test Coverage"
-      #     coverage-summary-path: ./coverage/coverage-summary.json
-      #     coverage-path: ./coverage/coverage.txt
 
       - name: Run tests and check code coverage
         uses: mattallty/jest-github-action@v1
